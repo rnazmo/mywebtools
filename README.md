@@ -1,73 +1,96 @@
-# React + TypeScript + Vite
+# mywebtools
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 概要
 
-Currently, two official plugins are available:
+ブラウザで使える React.js 製ユーティリティツールを置いた静的サイト。
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 目的
 
-## React Compiler
+このプロジェクトの目的。
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- 私が自分でユーティリティとして使う
+- 私のフロントエンドスキルを向上させる
 
-## Expanding the ESLint configuration
+## 公開URL
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+TODO: Vercel デプロイ後に追記
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 技術スタック
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+| 分類 | 項目 | 技術 |
+|---|---|---|
+| コア | UI | React + TypeScript |
+| コア | ビルド | Vite |
+| コア | スタイリング | Tailwind CSS |
+| コア | UIコンポーネント | shadcn/ui |
+| コア | ルーティング | React Router |
+| 開発環境 | リンター・フォーマッター | Biome |
+| 開発環境 | Node.js 管理 | mise |
+| 開発環境 | パッケージマネージャー | npm |
+| インフラ | デプロイ | Vercel |
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 開発環境構築
+
+前提：[mise](https://mise.jdx.dev/) を利用できること
+
+```bash
+# リポジトリをクローン
+git clone git@github.com:rnazmo/mywebtools.git
+cd mywebtools
+
+# Node.js のインストール（mise を使用）
+mise install
+
+# 依存パッケージのインストール
+npm install
+
+# 開発サーバーの起動
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 規約
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 規約の強さ
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+RFC 2119 を参考にした仕様や要件の強さ。
+
+- **MUST**: 必須
+- **SHOULD**: 原則として守るべきだが、理由があれば例外を許す
+- **MAY**: 任意
+- **MUST NOT** / **SHOULD NOT**: それぞれ「絶対禁止」「原則禁止」
+
+### コード
+
+- Biome に従う (SHOULD)
+- TODO: Biome のどのルールを適用する、などの詳細もメモしておく？
+
+### コミットメッセージ
+
+- [Conventional Commits](https://www.conventionalcommits.org/) に準拠する (SHOULD)
+    - 個人開発のため厳密でなくてよい。
+- 言語は英語 (MUST)
+- 接頭辞の例：
+    - feat: add stopwatch tool
+    - fix: fix timer reset bug
+    - chore: setup biome
+    - docs: update README
+    - refactor: simplify stopwatch component
+
+### ブランチ戦略
+
+- `main` ブランチに直接コミットせず、作業ブランチを切って開発する (SHOULD)
+- 接頭辞：
+    - feature/add-timer-tool   # 新機能追加
+    - fix/stopwatch-bug        # バグ修正
+    - chore/setup-biome        # 環境構築・設定変更
+    - docs/update-readme       # ドキュメント更新
+    - refactor/stopwatch       # リファクタリング
+
+### Issues / Pull requests (GitHub)
+
+TODO: Issues などの機能を使うのかどうか。使うとしたらどう使うのか。規約はどうするのか
+
+### ADR
+
+- 新しいADRをファイルの先頭に追加していく（降順）(MUST)
+    - 私が管理・編集しやすくするため
