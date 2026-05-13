@@ -6,9 +6,9 @@
 
 以下のタスクは、上から順に依存関係がある。基本的に上から順に実施すること。
 
-- [ ] mise 設定（`.mise.toml` に Node.js バージョンを記載）
+- [x] mise 設定（`.mise.toml` に Node.js バージョンを記載）
 
-- [ ] Vite で新規プロジェクト作成（React + TypeScript テンプレート）
+- [x] Vite で新規プロジェクト作成（React + TypeScript テンプレート）
   - `npm create vite@latest . -- --template react-ts` を実行する
   - テンプレートから生成された不要ファイル・コードを削除する
     - `src/assets/` 配下の不要ファイル
@@ -16,9 +16,9 @@
     - `src/App.tsx` のテンプレートコード（骨格だけ残す）
     - `public/vite.svg`、`src/assets/react.svg` など
 
-- [ ] `.editorconfig` を追加する
+- [x] `.editorconfig` を追加する
 
-- [ ] Biome の導入・設定
+- [x] Biome の導入・設定
   - ADR-006 参照
   - 早い段階で導入することで、以降のコードを一貫したスタイルで記述できる
   - `npm install --save-dev --save-exact @biomejs/biome`
