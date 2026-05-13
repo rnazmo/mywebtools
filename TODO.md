@@ -2,25 +2,70 @@
 
 ## Milestone: v0.0.1 - 基盤構築・スケルトン完成
 
+### 序盤のタスク
+
+以下のタスクは、上から順に依存関係がある。基本的に上から順に実施すること。
+
+- [ ] mise 設定（`.mise.toml` に Node.js バージョンを記載）
+
+- [ ] Vite で新規プロジェクト作成（React + TypeScript テンプレート）
+  - `npm create vite@latest . -- --template react-ts` を実行する
+  - テンプレートから生成された不要ファイル・コードを削除する
+    - `src/assets/` 配下の不要ファイル
+    - `src/App.css` の中身
+    - `src/App.tsx` のテンプレートコード（骨格だけ残す）
+    - `public/vite.svg`、`src/assets/react.svg` など
+
+- [ ] `.editorconfig` を追加する
+
+- [ ] Biome の導入・設定
+  - ADR-006 参照
+  - 早い段階で導入することで、以降のコードを一貫したスタイルで記述できる
+  - `npm install --save-dev --save-exact @biomejs/biome`
+  - `npx @biomejs/biome init` で `biome.json` を生成する
+  - `package.json` の `scripts` にフォーマット・リントのコマンドを追加する
+
+- [ ] `@/` エイリアスの設定
+  - `vite.config.ts` と `tsconfig.app.json` の両方に設定が必要
+  - 参考: <https://ui.shadcn.com/docs/installation/vite>
+
+- [ ] Tailwind CSS の導入・設定
+  - `npm install -D tailwindcss postcss autoprefixer`
+  - `npx tailwindcss init -p` で設定ファイルを生成する
+  - `tailwind.config.js` の `content` に対象ファイルのパスを設定する
+  - `src/index.css` に `@tailwind` ディレクティブを追記する
+  - 参考: <https://tailwindcss.com/docs/guides/vite>
+
+- [ ] shadcn/ui の導入・設定（Tailwind CSS の設定が前提）
+  - `npx shadcn@latest init` を実行する（style: Default、base color: Stone、CSS variables: yes）
+  - button コンポーネントを追加する: `npx shadcn@latest add button`
+  - card コンポーネントを追加する: `npx shadcn@latest add card`
+  - 参考: <https://ui.shadcn.com/docs/installation/vite>
+  - ※ shadcn/ui が生成するファイル（`src/components/ui/*.tsx`）は ESLint・Biome のチェック対象から除外する
+
+- [ ] React Router の導入・設定
+  - `npm install react-router-dom`
+  - 参考: <https://reactrouter.com/en/main/start/tutorial>
+
+- [ ] レイアウトコンポーネントの作成（`src/components/layout.tsx`）
+  - サイドバー + ヘッダー構成
+  - React Router の `<Outlet />` を使ってネストルーティングに対応させる
+
+- [ ] ホーム画面の作成（`src/components/home.tsx`）
+  - ツール一覧をカードで並べるレイアウト
+  - 各カードにはツール名とリンクを置く（この時点ではリンク先はまだ空でよい）
+
+- [ ] Vercel へのデプロイ設定
+  - GitHub リポジトリと Vercel を連携させる
+  - デプロイ完了後、`README.md` の公開URL欄を更新すること
+
 ### セキュリティ・バグ修正
 
 無し。
 
 ### コード・機能
 
-以下のタスクは、上から順に依存関係がある。基本的に上から順に実施すること。
-
-- [ ] Vite で新規プロジェクト作成（React + TypeScript テンプレート）
-- [ ] mise 設定（`.mise.toml` に Node.js バージョンを記載）
-- [ ] Vercel へのデプロイ設定
-    - デプロイ完了後、`README.md` の公開URL欄を更新すること（下記ドキュメントタスク参照）
-- [ ] `@/` エイリアスの設定（`vite.config.ts` と `tsconfig.json` の両方に設定が必要）
-- [ ] Tailwind CSS の導入・設定
-- [ ] shadcn/ui の導入・設定（Tailwind CSS の設定が前提）
-- [ ] Biome の導入・設定（→ ADR-006 参照）
-- [ ] React Router の導入・設定
-- [ ] レイアウトコンポーネントの作成（サイドバー・ヘッダー）
-- [ ] ホーム画面の作成
+無し。
 
 ### テスト・CI
 
@@ -32,19 +77,19 @@
 - [x] `ADR.md` の追加（雛形のみ）
 - [x] `TODO.md` に序盤のタスクを書く（叩き台で良い）
 - [ ] `README.md` に基本的な項目を記述する
-    - まずどんなセクションを作るか決める → 各セクションを埋める
+  - まずどんなセクションを作るか決める → 各セクションを埋める
 - [ ] `README.md` に「このプロジェクトについて」というセクションを追加する
-    - [ ] その中には「（このプロジェクトの）目的」「（このプロジェクトの）ポリシー」などのセクションを作る
-    - [ ] 「（このプロジェクトの）目的」「（このプロジェクトの）ポリシー」を制定する
+  - [ ] その中には「（このプロジェクトの）目的」「（このプロジェクトの）ポリシー」などのセクションを作る
+  - [ ] 「（このプロジェクトの）目的」「（このプロジェクトの）ポリシー」を制定する
 - [ ] `README.md` の公開URL欄を更新（Vercel デプロイ後に実施）
 - [ ] `README.md` にブランチ戦略について記述する
 - [ ] `README.md` に Conventions について記述する（Git コミットメッセージの規約など）
 - [ ] `ADR.md` に序盤の技術選定に関する意思決定を書く
-    - Biome 採用の判断
-    - Vercel 採用の判断
-    - Tailwind CSS 採用の判断
-    - shadcn/ui 採用の判断
-    - その他、判断が必要になったものは随時追加
+  - Biome 採用の判断
+  - Vercel 採用の判断
+  - Tailwind CSS 採用の判断
+  - shadcn/ui 採用の判断
+  - その他、判断が必要になったものは随時追加
 
 ### プロジェクト管理
 
@@ -115,7 +160,7 @@
 ### テスト・CI
 
 - [ ] テストの導入を検討（Vitest + React Testing Library が有力候補）
-    - 検討結果は ADR に記録すること
+  - 検討結果は ADR に記録すること
 
 ### ドキュメント
 
@@ -125,7 +170,7 @@
 
 - [ ] カスタムドメインの取得を検討
 - [ ] Cloudflare Pages の導入を検討
-    - まずは別プロジェクトで試してから判断する
+  - まずは別プロジェクトで試してから判断する
 
 ---
 
