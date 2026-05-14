@@ -7,7 +7,6 @@
 以下のタスクは、上から順に依存関係がある。基本的に上から順に実施すること。
 
 - [x] mise 設定（`.mise.toml` に Node.js バージョンを記載）
-
 - [x] Vite で新規プロジェクト作成（React + TypeScript テンプレート）
   - `npm create vite@latest . -- --template react-ts` を実行する
   - テンプレートから生成された不要ファイル・コードを削除する
@@ -15,46 +14,29 @@
     - `src/App.css` の中身
     - `src/App.tsx` のテンプレートコード（骨格だけ残す）
     - `public/vite.svg`、`src/assets/react.svg` など
-
 - [x] `.editorconfig` を追加する
-
 - [x] Biome の導入・設定
   - ADR-006 参照
   - 早い段階で導入することで、以降のコードを一貫したスタイルで記述できる
   - `npm install --save-dev --save-exact @biomejs/biome`
   - `npx @biomejs/biome init` で `biome.json` を生成する
   - `package.json` の `scripts` にフォーマット・リントのコマンドを追加する
-
-- [ ] `@/` エイリアスの設定
-  - `vite.config.ts` と `tsconfig.app.json` の両方に設定が必要
-  - 参考: <https://ui.shadcn.com/docs/installation/vite>
-
-- [ ] Tailwind CSS の導入・設定
-  - `npm install -D tailwindcss postcss autoprefixer`
-  - `npx tailwindcss init -p` で設定ファイルを生成する
-  - `tailwind.config.js` の `content` に対象ファイルのパスを設定する
-  - `src/index.css` に `@tailwind` ディレクティブを追記する
-  - 参考: <https://tailwindcss.com/docs/guides/vite>
-
-- [ ] shadcn/ui の導入・設定（Tailwind CSS の設定が前提）
-  - `npx shadcn@latest init` を実行する（style: Default、base color: Stone、CSS variables: yes）
-  - button コンポーネントを追加する: `npx shadcn@latest add button`
-  - card コンポーネントを追加する: `npx shadcn@latest add card`
-  - 参考: <https://ui.shadcn.com/docs/installation/vite>
-  - ※ shadcn/ui が生成するファイル（`src/components/ui/*.tsx`）は ESLint・Biome のチェック対象から除外する
-
+- [x] shadcn/ui の導入
+  - **Ref: [Vite - shadcn／ui](https://ui.shadcn.com/docs/installation/vite#existing-vite-project)**
+  - 大まかな手順：
+    - Tailwind CSS のインストール
+    - 関連ファイルの設定
+    - shadcn/ui のインストール
+    - shadcn/ui のコンポーネントの追加
 - [ ] React Router の導入・設定
   - `npm install react-router-dom`
   - 参考: <https://reactrouter.com/en/main/start/tutorial>
-
 - [ ] レイアウトコンポーネントの作成（`src/components/layout.tsx`）
   - サイドバー + ヘッダー構成
   - React Router の `<Outlet />` を使ってネストルーティングに対応させる
-
 - [ ] ホーム画面の作成（`src/components/home.tsx`）
   - ツール一覧をカードで並べるレイアウト
   - 各カードにはツール名とリンクを置く（この時点ではリンク先はまだ空でよい）
-
 - [ ] Vercel へのデプロイ設定
   - GitHub リポジトリと Vercel を連携させる
   - デプロイ完了後、`README.md` の公開URL欄を更新すること
