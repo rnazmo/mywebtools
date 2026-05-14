@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./components/home";
 import Layout from "./components/layout";
 import Stopwatch from "./components/stopwatch";
+import Timer from "./components/timer";
 import "./App.css";
 
 export default function App() {
@@ -12,6 +13,7 @@ export default function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="/stopwatch" element={<Stopwatch />} />
+          <Route path="/timer" element={<Timer />} />
         </Route>
       </Routes>
     </BrowserRouter>
