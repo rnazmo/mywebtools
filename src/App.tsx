@@ -1,46 +1,17 @@
-import { useState } from "react";
-// import reactLogo from "./assets/react.svg";
-// import viteLogo from "./assets/vite.svg";
-// import heroImg from "./assets/hero.png";
-import { Button } from "@/components/ui/button";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Home from "./components/home";
+import Layout from "./components/layout";
 import "./App.css";
 
-function App() {
-  const [count, setCount] = useState(0);
-
+export default function App() {
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          {/* <img src={heroImg} className="base" width="170" height="179" alt="" /> */}
-          {/* <img src={reactLogo} className="framework" alt="React logo" /> */}
-          {/* <img src={viteLogo} className="vite" alt="Vite logo" /> */}
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
-
-      <div className="ticks"></div>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-
-      <div className="flex min-h-svh flex-col items-center justify-center">
-        <Button>Click me</Button>
-      </div>
-    </>
+    <BrowserRouter>
+      <Routes>
+        {/* Layout を親ルートにして、子ページを Outlet に流し込む */}
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
-
-export default App;
