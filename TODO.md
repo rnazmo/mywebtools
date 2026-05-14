@@ -28,13 +28,11 @@
     - 関連ファイルの設定
     - shadcn/ui のインストール
     - shadcn/ui のコンポーネントの追加
-- [ ] React Router の導入・設定
-  - `npm install react-router-dom`
-  - 参考: <https://reactrouter.com/en/main/start/tutorial>
-- [ ] レイアウトコンポーネントの作成（`src/components/layout.tsx`）
+- [x] React Router の導入・設定
+- [x] レイアウトコンポーネントの作成（`src/components/layout.tsx`）
   - サイドバー + ヘッダー構成
   - React Router の `<Outlet />` を使ってネストルーティングに対応させる
-- [ ] ホーム画面の作成（`src/components/home.tsx`）
+- [x] ホーム画面の作成（`src/components/home.tsx`）
   - ツール一覧をカードで並べるレイアウト
   - 各カードにはツール名とリンクを置く（この時点ではリンク先はまだ空でよい）
 - [ ] Vercel へのデプロイ設定
