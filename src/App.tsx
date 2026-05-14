@@ -3,6 +3,7 @@ import Home from "./components/home";
 import Layout from "./components/layout";
 import Stopwatch from "./components/stopwatch";
 import Timer from "./components/timer";
+import Pomodoro from "./components/pomodoro";
 import "./App.css";
 
 export default function App() {
@@ -14,6 +15,7 @@ export default function App() {
           <Route index element={<Home />} />
           <Route path="/stopwatch" element={<Stopwatch />} />
           <Route path="/timer" element={<Timer />} />
+          <Route path="/pomodoro" element={<Pomodoro />} />
         </Route>
       </Routes>
     </BrowserRouter>
