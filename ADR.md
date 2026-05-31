@@ -1,7 +1,5 @@
 # ADR (mywebtools)
 
-# ADR (mywebtools)
-
 ## ADR-010: スタイリング手法の検討 → Tailwind CSS を採用
 
 - 日付: 2024-09-20（初期構築時の判断）
