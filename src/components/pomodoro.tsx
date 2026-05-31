@@ -65,8 +65,20 @@ export default function Pomodoro() {
     return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
   };
 
+  // フェーズに応じた背景色クラスを決定する
+  // Tailwind はビルド時にソースをスキャンしてクラスを収集するため、
+  // 文字列を動的に組み立てると検出されずスタイルが当たらない。
+  // クラス名全体を静的な文字列リテラルとして書くことで、この問題を回避する。
+  const bgClass = isFocusTime
+    ? "bg-blue-100 dark:bg-blue-900"
+    : "bg-green-100 dark:bg-green-900";
+
   return (
-    <>
+    // min-h-screen でビューポート全体を覆い、-m-6 で Layout の <main> の padding (p-6) を打ち消す。
+    // p-6 で内側の余白を元に戻す。こうすることで背景色をページ幅いっぱいに広げられる。
+    <div
+      className={`min-h-screen -m-6 p-6 transition-colors duration-700 ${bgClass}`}
+    >
       <h1 className="mb-6 text-3xl font-bold">Pomodoro Timer</h1>
       <Card>
         <CardContent className="flex flex-col items-center p-6">
@@ -89,6 +101,6 @@ export default function Pomodoro() {
           </div>
         </CardContent>
       </Card>
-    </>
+    </div>
   );
 }
