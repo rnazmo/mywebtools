@@ -168,7 +168,7 @@ export default function Pomodoro() {
       className={`min-h-screen -m-6 p-6 transition-colors duration-700 ${bgClass}`}
     >
       <h1 className="mb-6 text-3xl font-bold">Pomodoro Timer</h1>
-      <Card>
+      <Card className="bg-white/30 backdrop-blur-sm dark:bg-white/10">
         <CardContent className="flex flex-col items-center p-6">
           {/* フェーズ名: 補足ラベルとして小さく・大文字で表示 */}
           <p
