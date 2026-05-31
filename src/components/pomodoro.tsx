@@ -165,13 +165,18 @@ export default function Pomodoro() {
             {formatTime(remainingSeconds)}
           </div>
           <div className="space-x-4">
-            <Button size="lg" onClick={startPause}>
+            <Button size="lg" className="min-w-[4.5rem]" onClick={startPause}>
               {isRunning ? "Pause" : "Start"}
             </Button>
-            <Button size="lg" variant="outline" onClick={skip}>
+            <Button
+              size="lg"
+              className="min-w-[4.5rem]"
+              variant="outline"
+              onClick={skip}
+            >
               Skip →
             </Button>
-            <Button size="lg" onClick={reset}>
+            <Button size="lg" className="min-w-[4.5rem]" onClick={reset}>
               Reset
             </Button>
           </div>
