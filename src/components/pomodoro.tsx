@@ -37,6 +37,20 @@ export default function Pomodoro() {
     setRemainingSeconds(nextIsFocusTime ? FOCUS_SECONDS : BREAK_SECONDS);
   }, [remainingSeconds, isFocusTime]);
 
+  // 現在のフェーズを終わらせて次のフェーズへ手動で進む
+  // 自動開始はしない（ユーザーが準備できたタイミングで Start するため）
+  // また、skip 関数の中身はフェーズ切り替え useEffect と似ているが、気軽に DRY しないこと。
+  // useEffect は「タイマーが自然にゼロになったとき」の自動処理で、
+  // skip は「ユーザーが手動で進めるとき」の処理で、目的が異なるため。
+  // 今後「スキップ時はカウントを記録する」「自動進行時は音を鳴らす」といった差異が生まれたとき、
+  // 別々に書いてあることが生きてくる。
+  const skip = () => {
+    setIsRunning(false);
+    const nextIsFocusTime = !isFocusTime;
+    setIsFocusTime(nextIsFocusTime);
+    setRemainingSeconds(nextIsFocusTime ? FOCUS_SECONDS : BREAK_SECONDS);
+  };
+
   const startPause = () => setIsRunning((r) => !r);
 
   const reset = () => {
@@ -65,6 +79,9 @@ export default function Pomodoro() {
           <div className="space-x-4">
             <Button size="lg" onClick={startPause}>
               {isRunning ? "Pause" : "Start"}
+            </Button>
+            <Button size="lg" variant="outline" onClick={skip}>
+              Skip →
             </Button>
             <Button size="lg" onClick={reset}>
               Reset
