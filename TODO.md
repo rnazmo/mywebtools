@@ -92,6 +92,13 @@ v0.0.3 で積み残した設定機能を実装する。
 
 - [ ] ツール拡充（アイデアは末尾のメモ参照）
 - [ ] UI/UX 改善
+- [ ] Pomodoro Timer の UI について、Carousel（shadcn/ui）の採用を検討する
+  - ADR-016 にて Carousel 採用案は否決された。その一番の理由は「内部に Embla Carousel
+      を使っており、今回の目的に対して学習・実装コストが見合わない」であった。
+  - しかし、サンプル（下記リンク）の操作・見た目の感触が良く、
+      フェーズ切り替えにCarouselを使うアイデアは引き続き魅力的に感じている。
+  - なので、余裕があれば再度検討したい。
+  - Ref: [Carousel - shadcn／ui](https://ui.shadcn.com/docs/components/radix/carousel)
 
 ### テスト・CI
 
