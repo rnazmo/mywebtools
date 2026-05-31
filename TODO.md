@@ -13,7 +13,7 @@
   - Web Audio API でコード生成する方式が有力候補（音声ファイル不要・権利関係がシンプル）
   - 実装方法の選定（Web Audio API vs `<audio>` タグ）は ADR に記録すること
   - ADR を書くこと。案：「音通知の実装方法（Web Audio API vs `<audio>` タグ）」
-- [ ] **Must2**: タブタイトルへの残り時間表示
+- [x] **Must2**: タブタイトルへの残り時間表示
   - 例: `[25:00] Pomodoro Timer` → `[24:59] Pomodoro Timer` のようにカウントダウン
   - 最小化中・別タブ作業中でも残り時間を確認できるようにする
   - `document.title` を更新する実装になる？

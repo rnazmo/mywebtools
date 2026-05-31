@@ -65,6 +65,16 @@ export default function Pomodoro() {
     return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
   };
 
+  // タブタイトルに残り時間を表示する
+  // 最小化中・別タブ作業中でも残り時間を確認できるようにするため。
+  // アンマウント時（他ページ移動時）にはタイトルを元に戻す
+  useEffect(() => {
+    document.title = `[${formatTime(remainingSeconds)}] Pomodoro Timer`;
+    return () => {
+      document.title = "mywebtools";
+    };
+  }, [remainingSeconds]);
+
   // フェーズに応じた背景色クラスを決定する
   // Tailwind はビルド時にソースをスキャンしてクラスを収集するため、
   // 文字列を動的に組み立てると検出されずスタイルが当たらない。
