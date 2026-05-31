@@ -1,11 +1,6 @@
 # TODO (mywebtools)
 
-## Milestone: v0.0.2 - ツール移植
-
-前身の `my-web-tools` からツールを移植・改善する。
-
-> **注意（移植時に必ず直すこと）**
-> `my-web-tools` の `home.tsx` に、`"Random Strong Generator"` という誤字あり（正: `"Random String Generator"`）
+## Milestone: v0.0.3 - テーマ未定
 
 ### セキュリティ・バグ修正
 
@@ -13,28 +8,7 @@
 
 ### コード・機能
 
-各ツールのサブタスクは共通して以下の構成とする。
-
-- [x] ツール「Stopwatch」の移植
-  - [x] コンポーネント実装（`src/components/stopwatch.tsx`）
-  - [x] ホーム画面へのリンク追加
-  - [x] 動作確認（主要ブラウザで手動確認）
-- [x] ツール「Timer」の移植
-  - [x] コンポーネント実装（`src/components/timer.tsx`）
-  - [x] ホーム画面へのリンク追加
-  - [x] 動作確認
-- [x] ツール「Pomodoro Timer」の移植
-  - [x] コンポーネント実装（`src/components/pomodoro.tsx`）
-  - [x] ホーム画面へのリンク追加
-  - [x] 動作確認
-- [x] ツール「UUID v4 Generator」の移植
-  - [x] コンポーネント実装（`src/components/uuid-v4.tsx`）
-  - [x] ホーム画面へのリンク追加
-  - [x] 動作確認
-- [ ] ツール「Random String Generator」の移植
-  - [ ] コンポーネント実装（`src/components/random-string.tsx`）
-  - [ ] ホーム画面へのリンク追加
-  - [ ] 動作確認
+無し。
 
 ### テスト・CI
 
@@ -50,7 +24,7 @@
 
 ---
 
-## Milestone: v0.0.3 - テーマ未定
+## Milestone: v0.0.4 - テーマ未定
 
 ### セキュリティ・バグ修正
 
