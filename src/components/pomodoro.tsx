@@ -7,6 +7,70 @@ import { Card, CardContent } from "@/components/ui/card";
 const FOCUS_SECONDS = 25 * 60;
 const BREAK_SECONDS = 5 * 60;
 
+// ビープ音を鳴らす関数
+// Web Audio API でコードから音を生成するため、音声ファイルは不要。
+// audioContext は呼び出しのたびに new することも可能だが、
+// ブラウザのオートプレイポリシーにより「ユーザー操作なしの音声再生」が制限されるため、
+// モジュールスコープで1つ持ち、最初のユーザー操作時に resume する設計にしている。
+let audioContext: AudioContext | null = null;
+
+const getAudioContext = (): AudioContext => {
+  if (!audioContext) {
+    audioContext = new AudioContext();
+  }
+  return audioContext;
+};
+
+// 単音を鳴らす。frequency: 周波数(Hz)、startTime: 開始時刻(秒)、duration: 長さ(秒)
+const playTone = (
+  ctx: AudioContext,
+  frequency: number,
+  startTime: number,
+  duration: number,
+): void => {
+  // OscillatorNode: 指定した周波数のサイン波を生成する「音源」
+  const oscillator = ctx.createOscillator();
+  // GainNode: 音量を調整する「ボリュームつまみ」。0〜1の範囲で指定する
+  const gain = ctx.createGain();
+
+  // 音源 → ボリューム → スピーカーの順につなぐ
+  oscillator.connect(gain);
+  gain.connect(ctx.destination);
+
+  oscillator.type = "sine"; // サイン波: 最も柔らかい波形
+  oscillator.frequency.value = frequency;
+  gain.gain.value = 0.3; // 音量: 耳障りにならない程度の小ささ
+
+  oscillator.start(startTime);
+  oscillator.stop(startTime + duration);
+};
+
+// フェーズ切り替え時の通知音を鳴らす
+// toFocusTime: true なら休憩→集中（3回）、false なら集中→休憩（2回）
+const playBeep = (toFocusTime: boolean): void => {
+  const ctx = getAudioContext();
+  // ブラウザのオートプレイポリシーで suspended になっている場合に再開する
+  // （ユーザー操作後に呼ばれる前提だが、念のため毎回チェックする）
+  if (ctx.state === "suspended") {
+    ctx.resume();
+  }
+
+  const now = ctx.currentTime;
+  const toneDuration = 0.15; // 1音の長さ（秒）
+  const toneInterval = 0.2; // 音の間隔（秒）
+
+  if (toFocusTime) {
+    // 休憩→集中: 「さあ始めよう」= 低め3回
+    playTone(ctx, 440, now, toneDuration); // A4
+    playTone(ctx, 440, now + toneInterval, toneDuration);
+    playTone(ctx, 440, now + toneInterval * 2, toneDuration);
+  } else {
+    // 集中→休憩: 「お疲れさま」= 高め2回
+    playTone(ctx, 660, now, toneDuration); // E5
+    playTone(ctx, 660, now + toneInterval, toneDuration);
+  }
+};
+
 export default function Pomodoro() {
   const [remainingSeconds, setRemainingSeconds] = useState(FOCUS_SECONDS);
   const [isRunning, setIsRunning] = useState(false);
@@ -35,6 +99,7 @@ export default function Pomodoro() {
     const nextIsFocusTime = !isFocusTime;
     setIsFocusTime(nextIsFocusTime);
     setRemainingSeconds(nextIsFocusTime ? FOCUS_SECONDS : BREAK_SECONDS);
+    playBeep(nextIsFocusTime);
   }, [remainingSeconds, isFocusTime]);
 
   // 現在のフェーズを終わらせて次のフェーズへ手動で進む
@@ -49,6 +114,7 @@ export default function Pomodoro() {
     const nextIsFocusTime = !isFocusTime;
     setIsFocusTime(nextIsFocusTime);
     setRemainingSeconds(nextIsFocusTime ? FOCUS_SECONDS : BREAK_SECONDS);
+    playBeep(nextIsFocusTime);
   };
 
   const startPause = () => setIsRunning((r) => !r);
