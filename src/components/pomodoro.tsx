@@ -145,9 +145,21 @@ export default function Pomodoro() {
   // Tailwind はビルド時にソースをスキャンしてクラスを収集するため、
   // 文字列を動的に組み立てると検出されずスタイルが当たらない。
   // クラス名全体を静的な文字列リテラルとして書くことで、この問題を回避する。
+  // bg-200 は bg-100 より彩度が高く、チラ見でフェーズを即判別しやすい濃さ。
+  // ダークモードは bg-800 に変更（bg-900 は暗すぎて背景色の差が出にくいため）。
   const bgClass = isFocusTime
-    ? "bg-blue-100 dark:bg-blue-900"
-    : "bg-green-100 dark:bg-green-900";
+    ? "bg-blue-200 dark:bg-blue-800"
+    : "bg-green-200 dark:bg-green-800";
+
+  // フェーズ名・タイマー数字それぞれの色クラス。
+  // 背景と同系統の濃い色を使うことで「読める・でも主役ではない（フェーズ名）」
+  // 「高コントラストで主役（タイマー数字）」を両立する。
+  const phaseTextClass = isFocusTime
+    ? "text-blue-700 dark:text-blue-200"
+    : "text-green-700 dark:text-green-200";
+  const timerTextClass = isFocusTime
+    ? "text-blue-900 dark:text-blue-100"
+    : "text-green-900 dark:text-green-100";
 
   return (
     // min-h-screen でビューポート全体を覆い、-m-6 で Layout の <main> の padding (p-6) を打ち消す。
@@ -158,10 +170,16 @@ export default function Pomodoro() {
       <h1 className="mb-6 text-3xl font-bold">Pomodoro Timer</h1>
       <Card>
         <CardContent className="flex flex-col items-center p-6">
-          <div className="mb-4 text-2xl">
+          {/* フェーズ名: 補足ラベルとして小さく・大文字で表示 */}
+          <p
+            className={`mb-2 text-xs font-medium uppercase tracking-widest ${phaseTextClass}`}
+          >
             {isFocusTime ? "Focus Time!" : "Break Time!"}
-          </div>
-          <div className="mb-6 font-mono text-6xl">
+          </p>
+          {/* タイマー数字: 主役として大きく・高コントラストで表示 */}
+          <div
+            className={`mb-8 font-mono text-7xl font-medium ${timerTextClass}`}
+          >
             {formatTime(remainingSeconds)}
           </div>
           <div className="space-x-4">
