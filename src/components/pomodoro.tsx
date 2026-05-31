@@ -183,18 +183,34 @@ export default function Pomodoro() {
             {formatTime(remainingSeconds)}
           </div>
           <div className="space-x-4">
-            <Button size="lg" className="min-w-[4.5rem]" onClick={startPause}>
+            <Button
+              size="lg"
+              variant="outline"
+              className="min-w-[4.5rem] border-blue-400/60 text-blue-900
+          hover:bg-blue-400/20 dark:border-blue-400/40 dark:text-blue-100
+          dark:hover:bg-blue-400/20"
+              onClick={startPause}
+            >
               {isRunning ? "Pause" : "Start"}
             </Button>
             <Button
               size="lg"
-              className="min-w-[4.5rem]"
               variant="outline"
+              className="min-w-[4.5rem] border-blue-400/60 text-blue-900
+          hover:bg-blue-400/20 dark:border-blue-400/40 dark:text-blue-100
+          dark:hover:bg-blue-400/20"
               onClick={skip}
             >
               Skip →
             </Button>
-            <Button size="lg" className="min-w-[4.5rem]" onClick={reset}>
+            <Button
+              size="lg"
+              variant="outline"
+              className="min-w-[4.5rem] border-blue-400/60 text-blue-900
+          hover:bg-blue-400/20 dark:border-blue-400/40 dark:text-blue-100
+          dark:hover:bg-blue-400/20"
+              onClick={reset}
+            >
               Reset
             </Button>
           </div>
