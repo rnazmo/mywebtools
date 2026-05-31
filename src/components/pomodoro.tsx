@@ -201,7 +201,7 @@ export default function Pomodoro() {
           dark:hover:bg-blue-400/20"
               onClick={skip}
             >
-              Skip →
+              Skip
             </Button>
             <Button
               size="lg"
