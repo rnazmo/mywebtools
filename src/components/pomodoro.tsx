@@ -178,7 +178,8 @@ export default function Pomodoro() {
           </p>
           {/* タイマー数字: 主役として大きく・高コントラストで表示 */}
           <div
-            className={`mb-8 font-mono text-7xl font-medium ${timerTextClass}`}
+            className={`mb-8 text-7xl font-medium ${timerTextClass}`}
+            style={{ fontFamily: "var(--font-geist-mono)" }}
           >
             {formatTime(remainingSeconds)}
           </div>
