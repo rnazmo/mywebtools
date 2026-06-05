@@ -1,11 +1,8 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-
-// フォーカス時間と休憩時間の設定（秒単位）
-// 定数として外に出すことで、後から値を変えやすくする
-const FOCUS_SECONDS = 25 * 60;
-const BREAK_SECONDS = 5 * 60;
+import PomodoroSettingsDialog from "@/components/PomodoroSettingsDialog";
+import { usePomodoroSettings } from "@/hooks/usePomodoroSettings";
 
 // ビープ音を鳴らす関数
 // Web Audio API でコードから音を生成するため、音声ファイルは不要。
@@ -72,9 +69,22 @@ const playBeep = (toFocusTime: boolean): void => {
 };
 
 export default function Pomodoro() {
-  const [remainingSeconds, setRemainingSeconds] = useState(FOCUS_SECONDS);
+  const settings = usePomodoroSettings();
+  const [remainingSeconds, setRemainingSeconds] = useState(
+    () => settings.focusSeconds,
+  );
   const [isRunning, setIsRunning] = useState(false);
   const [isFocusTime, setIsFocusTime] = useState(true);
+
+  // 設定保存時にタイマーをリセットする。
+  // useCallback を使うことで、不要な再レンダリングを防ぐ
+  const handleSettingsSave = useCallback(() => {
+    setIsRunning(false);
+    setIsFocusTime(true);
+    // リセット時は保存後の新しい設定値を使う必要があるため、
+    // settings.focusSeconds を直接参照せず、フックから取得した値を使う
+    setRemainingSeconds(settings.focusSeconds);
+  }, [settings.focusSeconds]);
 
   // カウントダウン処理
   // isRunning だけを依存にすることで、インターバルの無駄な再生成を避ける
@@ -98,7 +108,9 @@ export default function Pomodoro() {
     // isFocusTime を読んで次のフェーズを決めるため、依存配列に含める必要がある
     const nextIsFocusTime = !isFocusTime;
     setIsFocusTime(nextIsFocusTime);
-    setRemainingSeconds(nextIsFocusTime ? FOCUS_SECONDS : BREAK_SECONDS);
+    setRemainingSeconds(
+      nextIsFocusTime ? settings.focusSeconds : settings.breakSeconds,
+    );
     playBeep(nextIsFocusTime);
   }, [remainingSeconds, isFocusTime]);
 
@@ -113,7 +125,9 @@ export default function Pomodoro() {
     setIsRunning(false);
     const nextIsFocusTime = !isFocusTime;
     setIsFocusTime(nextIsFocusTime);
-    setRemainingSeconds(nextIsFocusTime ? FOCUS_SECONDS : BREAK_SECONDS);
+    setRemainingSeconds(
+      nextIsFocusTime ? settings.focusSeconds : settings.breakSeconds,
+    );
     playBeep(nextIsFocusTime);
   };
 
@@ -122,7 +136,7 @@ export default function Pomodoro() {
   const reset = () => {
     setIsRunning(false);
     setIsFocusTime(true);
-    setRemainingSeconds(FOCUS_SECONDS);
+    setRemainingSeconds(settings.focusSeconds);
   };
 
   const formatTime = (totalSeconds: number): string => {
@@ -167,7 +181,13 @@ export default function Pomodoro() {
     <div
       className={`min-h-screen -m-6 p-6 transition-colors duration-700 ${bgClass}`}
     >
-      <h1 className="mb-6 text-3xl font-bold">Pomodoro Timer</h1>
+      <div className="mb-6 flex items-center gap-3">
+        <h1 className="text-3xl font-bold">Pomodoro Timer</h1>
+        <PomodoroSettingsDialog
+          settings={settings}
+          onSave={handleSettingsSave}
+        />
+      </div>
       <Card className="bg-white/30 backdrop-blur-sm dark:bg-white/10">
         <CardContent className="flex flex-col items-center p-6">
           {/* フェーズ名: 補足ラベルとして小さく・大文字で表示 */}
