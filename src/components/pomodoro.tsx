@@ -175,6 +175,10 @@ export default function Pomodoro() {
     ? "text-blue-900 dark:text-blue-100"
     : "text-green-900 dark:text-green-100";
 
+  const actionButtonClass = `h-8 min-w-[5rem] px-4 text-sm border-blue-400/60 text-blue-900
+  hover:bg-blue-400/20 dark:border-blue-400/40 dark:text-blue-100
+  dark:hover:bg-blue-400/20`;
+
   return (
     // min-h-screen でビューポート全体を覆い、-m-6 で Layout の <main> の padding (p-6) を打ち消す。
     // p-6 で内側の余白を元に戻す。こうすることで背景色をページ幅いっぱいに広げられる。
@@ -192,13 +196,13 @@ export default function Pomodoro() {
         <CardContent className="flex flex-col items-center p-6">
           {/* フェーズ名: 補足ラベルとして小さく・大文字で表示 */}
           <p
-            className={`mb-2 text-xs font-medium uppercase tracking-widest ${phaseTextClass}`}
+            className={`mb-3 text-sm font-semibold uppercase tracking-widest ${phaseTextClass}`}
           >
             {isFocusTime ? "Focus Time!" : "Break Time!"}
           </p>
           {/* タイマー数字: 主役として大きく・高コントラストで表示 */}
           <div
-            className={`mb-8 text-7xl font-medium ${timerTextClass}`}
+            className={`mb-8 text-8xl font-medium ${timerTextClass}`}
             style={{ fontFamily: "var(--font-geist-mono)" }}
           >
             {formatTime(remainingSeconds)}
@@ -207,9 +211,7 @@ export default function Pomodoro() {
             <Button
               size="lg"
               variant="outline"
-              className="min-w-[4.5rem] border-blue-400/60 text-blue-900
-          hover:bg-blue-400/20 dark:border-blue-400/40 dark:text-blue-100
-          dark:hover:bg-blue-400/20"
+              className={actionButtonClass}
               onClick={startPause}
             >
               {isRunning ? "Pause" : "Start"}
@@ -217,9 +219,7 @@ export default function Pomodoro() {
             <Button
               size="lg"
               variant="outline"
-              className="min-w-[4.5rem] border-blue-400/60 text-blue-900
-          hover:bg-blue-400/20 dark:border-blue-400/40 dark:text-blue-100
-          dark:hover:bg-blue-400/20"
+              className={actionButtonClass}
               onClick={skip}
             >
               Skip
@@ -227,9 +227,7 @@ export default function Pomodoro() {
             <Button
               size="lg"
               variant="outline"
-              className="min-w-[4.5rem] border-blue-400/60 text-blue-900
-          hover:bg-blue-400/20 dark:border-blue-400/40 dark:text-blue-100
-          dark:hover:bg-blue-400/20"
+              className={actionButtonClass}
               onClick={reset}
             >
               Reset
